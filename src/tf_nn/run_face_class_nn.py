@@ -5,6 +5,8 @@ from face_classification_nn import model
 from sklearn.cross_validation import train_test_split
 from sklearn import preprocessing
 
+single_run = True
+
 np.random.seed(1)
 
 # load the fe data
@@ -49,14 +51,17 @@ print("y_test shape: " + str(y_test.shape))
 y_train = convert_to_one_hot(y_train, 12)
 y_test  = convert_to_one_hot(y_test,  12)
 
-lrs = []
-tas = []
-
-for i in range(1, 10):
-    lrs.append(i * 1e-1)
+if single_run:
     parameters, test_accuracy = model(x_train, y_train, x_test, y_test, learning_rate=0.00001, num_epochs=3000)
+else:
+    lrs = []
+    tas = []
 
-    tas.append(test_accuracy)
+    for i in range(1, 10):
+        lrs.append(i * 1e-1)
+        parameters, test_accuracy = model(x_train, y_train, x_test, y_test, learning_rate=0.00001, num_epochs=3000)
 
-for i in range(len(lrs)):
-    print(lrs[i], tas[i])
+        tas.append(test_accuracy)
+
+    for i in range(len(lrs)):
+        print(lrs[i], tas[i])

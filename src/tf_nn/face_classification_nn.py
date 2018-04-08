@@ -36,10 +36,10 @@ def model(X_train, Y_train, X_test, Y_test, learning_rate=0.0001, num_epochs=150
     parameters = initialize_parameters()
 
     # Forward propagation: Build the forward propagation in the tensorflow graph
-    Z3 = forward_propagation(X, parameters)
+    Z4 = forward_propagation(X, parameters)
 
     # Cost function: Add cost function to tensorflow graph
-    cost = compute_cost(tf.transpose(Z3), tf.transpose(Y))
+    cost = compute_cost(tf.transpose(Z4), tf.transpose(Y))
 
     # Backpropagation: Define the tensorflow optimizer. Use an AdamOptimizer.
     # optimizer = tf.train.GradientDescentOptimizer(learning_rate = learning_rate).minimize(cost)
@@ -79,18 +79,18 @@ def model(X_train, Y_train, X_test, Y_test, learning_rate=0.0001, num_epochs=150
                 costs.append(epoch_cost)
 
         # plot the cost
-        #plt.plot(np.squeeze(costs))
-        #plt.ylabel('cost')
-        #plt.xlabel('iterations (per tens)')
-        #plt.title("Learning rate =" + str(learning_rate))
-        #plt.show()
+        plt.plot(np.squeeze(costs))
+        plt.ylabel('cost')
+        plt.xlabel('iterations (per tens)')
+        plt.title("Learning rate =" + str(learning_rate))
+        plt.show()
 
         # lets save the parameters in a variable
         parameters = sess.run(parameters)
         print("Parameters have been trained!")
 
         # Calculate the correct predictions
-        correct_prediction = tf.equal(tf.argmax(Z3), tf.argmax(Y))
+        correct_prediction = tf.equal(tf.argmax(Z4), tf.argmax(Y))
 
         # Calculate accuracy on the test set
         accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))

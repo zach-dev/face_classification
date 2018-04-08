@@ -103,9 +103,14 @@ def forward_propagation(X, parameters):
     Z1 = tf.add(tf.matmul(W1, X), b1)  # Z1 = np.dot(W1, X) + b1
     A1 = tf.nn.relu(Z1)  # A1 = relu(Z1)
     Z2 = tf.add(tf.matmul(W2, A1), b2)  # Z2 = np.dot(W2, a1) + b2
-    A2 = tf.nn.relu(Z2)  # A2 = relu(Z2)
+    # A2 = tf.nn.relu(Z2)  # A2 = relu(Z2)
+    A2_pre_do = tf.nn.relu(Z2)  # A2 = relu(Z2)
+    # Dropout on hidden layer: RELU layer
+    A2 = tf.nn.dropout(A2_pre_do, keep_prob=0.73, seed=42)
     Z3 = tf.add(tf.matmul(W3, A2), b3)  # Z2 = np.dot(W2, a1) + b2
     A3 = tf.nn.relu(Z3)  # A2 = relu(Z2)
+    # A3_pre_do = tf.nn.relu(Z3)  # A2 = relu(Z2)
+    # A3 = tf.nn.dropout(A3_pre_do, keep_prob=0.95, seed=43)
     Z4 = tf.add(tf.matmul(W4, A3), b4)  # Z3 = np.dot(W3,Z2) + b3
 
     return Z4
