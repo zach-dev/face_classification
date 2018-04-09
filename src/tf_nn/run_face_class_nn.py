@@ -5,7 +5,7 @@ from face_classification_nn import model
 from sklearn.cross_validation import train_test_split
 from sklearn import preprocessing
 
-single_run = True
+single_run = False
 
 np.random.seed(1)
 
@@ -56,12 +56,14 @@ if single_run:
 else:
     lrs = []
     tas = []
+    oms = [1e-6, 1e-5, 1e-4, 1e-3, 1e-2, 1e-1]
+    for om in oms:
+        for i in range(1, 10):
+            lr = i * om
+            parameters, test_accuracy = model(x_train, y_train, x_test, y_test, learning_rate=lr, num_epochs=3000)
 
-    for i in range(1, 10):
-        lrs.append(i * 1e-1)
-        parameters, test_accuracy = model(x_train, y_train, x_test, y_test, learning_rate=0.00001, num_epochs=3000)
+            lrs.append(lr)
+            tas.append(test_accuracy)
 
-        tas.append(test_accuracy)
-
-    for i in range(len(lrs)):
-        print(lrs[i], tas[i])
+        for i in range(len(lrs)):
+            print(lrs[i], tas[i])

@@ -79,11 +79,11 @@ def model(X_train, Y_train, X_test, Y_test, learning_rate=0.0001, num_epochs=150
                 costs.append(epoch_cost)
 
         # plot the cost
-        plt.plot(np.squeeze(costs))
-        plt.ylabel('cost')
-        plt.xlabel('iterations (per tens)')
-        plt.title("Learning rate =" + str(learning_rate))
-        plt.show()
+        #plt.plot(np.squeeze(costs))
+        #plt.ylabel('cost')
+        #plt.xlabel('iterations (per tens)')
+        #plt.title("Learning rate =" + str(learning_rate))
+        #plt.show()
 
         # lets save the parameters in a variable
         parameters = sess.run(parameters)
